@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import logo from '../assets/banana-01.png';
-import { useHistory, Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import {AuthContext} from "../context/AuthContext";
 
 function NavBar() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
+  const { login } = useContext(AuthContext);
+
+  function handleClick() { //Een functie kan meerdere dingen tegelijk, in plaats van een enkele callback met () =>
+    login();
+  }
   return (
     <nav>
         <Link to="/">
@@ -19,13 +25,13 @@ function NavBar() {
       <div>
         <button
           type="button"
-          onClick={() => history.push('/signin')}
+          onClick={ handleClick }
         >
           Log in
         </button>
         <button
           type="button"
-          onClick={() => history.push('/signup')}
+          onClick={() => navigate('/signup')}
         >
           Registreren
         </button>
